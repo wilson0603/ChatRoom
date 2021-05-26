@@ -27,7 +27,7 @@ protocol PresenterToViewChatProtocol: class {
 }
 
 protocol PresenterToInteractorChatProtocol:class {
-    var presenter:InteractorToPresenterChatProtocol? {get set}
+    var presenter: InteractorToPresenterChatProtocol? { get set }
     func fetch()
     func loadMore()
     func sendMessage(message: MessageData)

@@ -13,15 +13,12 @@ class TextInputViewController: UIViewController {
         let containerView = Bundle.main.loadNibNamed("TextViewBar", owner: self, options: nil)?.first as! TextViewBar
         return containerView
     }()
-    
     var tableView: LoadingTableView!
     var isLoading: Bool = false {
         didSet {
             tableView.isLoading = isLoading
         }
     }
-    //var shouldJumpOffset = false
-    
     var keyboardHeight: CGFloat = 0
     private var cellKeysDictionary: [String: CGFloat] = [:]
     private var isMessagesControllerBeingDismissed: Bool = false
@@ -50,14 +47,11 @@ class TextInputViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isMessagesControllerBeingDismissed = false
-        
         self.becomeFirstResponder()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-      
         isMessagesControllerBeingDismissed = true
     }
     
@@ -91,7 +85,6 @@ extension TextInputViewController {
 private extension TextInputViewController {
     
     @objc func dismissKeyboard() {
-       
         textViewBar.textView.resignFirstResponder()
     }
     
@@ -100,20 +93,14 @@ private extension TextInputViewController {
         if let userInfo = notification.userInfo,
         let beginFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue,
         let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-
             keyboardHeight = endFrame.height
-            //shouldJumpOffset, 
             if !isMessagesControllerBeingDismissed, !isLoading, presentedViewController == nil {
-
                 let delta = (endFrame.origin.y - beginFrame.origin.y)
                 let offset = tableView.contentOffset.y - delta
                 tableView.contentOffset = CGPoint(x: 0, y: offset)
-                
             }
-            
             tableView.contentInset.bottom = keyboardHeight - bottomLayoutGuide.length
             tableView.scrollIndicatorInsets.bottom = tableView.contentInset.bottom
-          
          }
     }
 }

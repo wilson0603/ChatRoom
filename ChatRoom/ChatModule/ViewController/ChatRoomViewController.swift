@@ -60,7 +60,6 @@ extension ChatRoomViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
         self.setKey(key: self.messages[indexPath.row].id, height: cell.frame.size.height)
 
         if tableView.isDragging, !self.isLoading, indexPath.row == 0 {
@@ -69,9 +68,7 @@ extension ChatRoomViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-
         return self.getHeight(key: self.messages[indexPath.row].id, defaultValue: 0)
-        
     }
 }
 

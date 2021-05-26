@@ -25,28 +25,19 @@ class photoPresent: NSObject, UIViewControllerAnimatedTransitioning {
             let toVc = transitionContext.viewController(forKey: .to) as! ImagePageViewController
             let finalFrame = toVc.view.frame
             
-            
             containView.addSubview(toVc.view)
             
-            
             if let parentImageView = toVc.parentImageView {
-                
                 toVc.hideParentImageView(true)
-                
                 if let parentImageView = toVc.parentImageView , let size = parentImageView.superview?.convert(parentImageView.frame, to: nil)  {
-                    
                     toVc.present.startingFrame = size
-                    
                 }
-                
                 toVc.tempImageView.contentMode = parentImageView.contentMode
                 toVc.tempImageView.frame = startingFrame
-                
                 toVc.view.addSubview(toVc.tempImageView)
-            }else {
+            } else {
                 toVc.pageViewController.view.transform = CGAffineTransform(translationX: 0, y: finalFrame.height)
             }
-            
             
             toVc.backButton.alpha = 0
             toVc.view.backgroundColor = .clear
@@ -63,17 +54,14 @@ class photoPresent: NSObject, UIViewControllerAnimatedTransitioning {
                         toVc.tempImageView.frame.size = size.getScaleSize(screen:finalFrame)
                     }
                     toVc.tempImageView.center = toVc.view.center
-                    
-                }else {
+                } else {
                     toVc.pageViewController.view.transform = CGAffineTransform.identity
                 }
    
             }, completion: { (finished) in
-                
                 toVc.tempImageView.isHidden = true
                 toVc.pageViewController.view.isHidden = false
                 transitionContext.completeTransition(true)
-   
             })
 
         } else { //leave
@@ -90,14 +78,10 @@ class photoPresent: NSObject, UIViewControllerAnimatedTransitioning {
                 
                 fromVc.pageViewController.view.isHidden = true
                 fromVc.tempImageView.isHidden = false
-               
                 
                 UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 5, options: .allowAnimatedContent, animations: {
-            
                     fromVc.tempImageView.frame = self.startingFrame
-                    
                 }, completion: { (finished) in
-                    
                     fromVc.hideParentImageView(false)
                     transitionContext.completeTransition(true)
                 })
@@ -124,6 +108,7 @@ extension photoPresent: UIViewControllerTransitioningDelegate {
         return self
         
     }
+    
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresent = false
         return self
